@@ -1,4 +1,6 @@
 const path = require('path');
+const MiniCssExtraPlugin = require('mini-css-extract-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
     entry:'./src/index.js',
@@ -12,7 +14,7 @@ module.exports = {
                 test:/\.css/, //オプションの構造　フィル名を検知　//で囲んで指定　.cssのファイルを検知
                 use:[//検知した物にルールを適用　~というloaderを使ってね♥という意味
                     {
-                        loader:'style-loader'//ローダは下から適用される
+                        loader:MiniCssExtraPlugin.loader,//ローダは下から適用される
                     },
                     {
                         loader:'css-loader',
@@ -21,5 +23,10 @@ module.exports = {
             },
         ],
     },
-
+    plugins:[
+        new MiniCssExtraPlugin(),
+        new HtmlWebpackPlugin({
+            template:'./src/index.html',
+        }),
+    ],
 }
