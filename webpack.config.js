@@ -1,12 +1,13 @@
 const path = require('path');
 const MiniCssExtraPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const {CleanWebpackPlugin} = require('clean-webpack-plugin');//(にはいろいろツールがあるが、{}のみとってくる
 
 module.exports = {
-    entry:'./src/index.js',
+    entry:'./src/javascripts/main.js',
     output:{
         path:path.resolve(__dirname,'./dist'),
-        filename:'main.js',
+        filename:'javascripts/main.js',
     },
     module:{ //
         rules:[ //配列　オプションa,b,c
@@ -24,9 +25,12 @@ module.exports = {
         ],
     },
     plugins:[
-        new MiniCssExtraPlugin(),
-        new HtmlWebpackPlugin({
-            template:'./src/index.html',
+        new MiniCssExtraPlugin({
+            filename:'./styleshhts/main.css',//階層も指定できる
         }),
+        new HtmlWebpackPlugin({
+            template:'./src/templates/index.html',//親、これに自動でcss,jacascが読み込まれる
+        }),
+        new CleanWebpackPlugin(),//ビルド前にdist配下を削除
     ],
 }
