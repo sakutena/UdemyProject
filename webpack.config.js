@@ -36,6 +36,20 @@ module.exports = {
                 }
 
                 ]
+            },
+            {
+                 test:/\.pug/,
+                use:[
+                    {
+                    loader:'html-loader',
+
+                },
+                {
+                      loader:'pug-html-loader',
+                }
+
+                ]
+
             }
         ],
     },
@@ -44,7 +58,12 @@ module.exports = {
             filename:'./styleshhts/main.css',//階層も指定できる
         }),
         new HtmlWebpackPlugin({
-            template:'./src/templates/index.html',//親、これに自動でcss,jacascが読み込まれる
+            template:'./src/templates/index.pug',//親、これに自動でcss,jacascが読み込まれる
+            filename:'index.html'
+        }),
+        new HtmlWebpackPlugin({
+            template:'./src/templates/access.pug',//親、これに自動でcss,jacascが読み込まれる
+            filename:'access.html'
         }),
         new CleanWebpackPlugin(),//ビルド前にdist配下を削除
     ],
