@@ -4,6 +4,9 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const {CleanWebpackPlugin} = require('clean-webpack-plugin');//(にはいろいろツールがあるが、{}のみとってくる
 
 module.exports = {
+    devServer: {
+    static: path.resolve(__dirname, 'src'),
+    },
     entry:'./src/javascripts/main.js',
     output:{
         path:path.resolve(__dirname,'./dist'),
@@ -12,13 +15,17 @@ module.exports = {
     module:{ //
         rules:[ //配列　オプションa,b,c
             {
-                test:/\.css/, //オプションの構造　フィル名を検知　//で囲んで指定　.cssのファイルを検知
+                test:/\.(css|sass|scss)/, //オプションの構造　フィル名を検知　//で囲んで指定　.cssのファイルを検知
                 use:[//検知した物にルールを適用　~というloaderを使ってね♥という意味
                     {
                         loader:MiniCssExtraPlugin.loader,//ローダは下から適用される
                     },
                     {
                         loader:'css-loader',
+                    },
+                    {
+                        loader:'sass-loader',
+
                     },
                 ],
             },
@@ -64,6 +71,10 @@ module.exports = {
         new HtmlWebpackPlugin({
             template:'./src/templates/access.pug',//親、これに自動でcss,jacascが読み込まれる
             filename:'access.html'
+        }),
+        new HtmlWebpackPlugin({
+            template:'./src/templates/members/taro.pug',//親、これに自動でcss,jacascが読み込まれる
+            filename:'members/taro.html'
         }),
         new CleanWebpackPlugin(),//ビルド前にdist配下を削除
     ],
